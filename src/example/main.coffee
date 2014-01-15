@@ -8,6 +8,7 @@ $ ->
     'font-family': 'sans-serif'
     'color': '#fff'
 
+  slide.choice = slide.choiceRandom
   slide.idx = 0
 
   slide.updatePage = ->
@@ -29,17 +30,22 @@ $ ->
     slide.showAt 0
 
     $('.navigator .prev').on 'click', (e) ->
-      e.preventDefault()
       slide.showPrev()
+      false
 
     $('.navigator .next').on 'click', (e) ->
-      e.preventDefault()
       slide.showNext()
+      false
 
     $(window).on 'keydown', (e) ->
       switch e.which
         when 37 then slide.showPrev()
         when 39 then slide.showNext()
+
+    setInterval ->
+      return if Math.random() > 0.02
+      slide.showAt slide.idx
+    , 100
 
   , 500
 

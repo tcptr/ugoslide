@@ -11,6 +11,7 @@
       'font-family': 'sans-serif',
       'color': '#fff'
     });
+    slide.choice = slide.choiceRandom;
     slide.idx = 0;
     slide.updatePage = function() {
       return $('.navigator .current').html("" + (this.idx + 1) + "/" + this.pages.length);
@@ -29,14 +30,14 @@
     return setTimeout(function() {
       slide.showAt(0);
       $('.navigator .prev').on('click', function(e) {
-        e.preventDefault();
-        return slide.showPrev();
+        slide.showPrev();
+        return false;
       });
       $('.navigator .next').on('click', function(e) {
-        e.preventDefault();
-        return slide.showNext();
+        slide.showNext();
+        return false;
       });
-      return $(window).on('keydown', function(e) {
+      $(window).on('keydown', function(e) {
         switch (e.which) {
           case 37:
             return slide.showPrev();
@@ -44,6 +45,12 @@
             return slide.showNext();
         }
       });
+      return setInterval(function() {
+        if (Math.random() > 0.02) {
+          return;
+        }
+        return slide.showAt(slide.idx);
+      }, 100);
     }, 500);
   });
 

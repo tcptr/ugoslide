@@ -7,6 +7,7 @@ class UgoSlide
     @size =
       width: @$root[0].clientWidth
       height: @$root[0].clientHeight
+    @choice = @choiceSequence
     @initStyle()
     @init()
 
@@ -65,9 +66,14 @@ class UgoSlide
 
     ret
 
-  # デフォルトでは, 上から順番に取るため同じような要素が同じまま残る
-  choice: (arr) ->
+  choiceSequence: (arr) ->
     arr.shift()
+
+  choiceRandom: (arr) ->
+    k = Math.floor(Math.random()*arr.length)
+    ret = arr[k]
+    arr.splice(k, 1)
+    ret
 
   # ひらがな, カタカナ, 漢字, アルファベットあたりをサポート
   characterGroup: (code, current) ->
