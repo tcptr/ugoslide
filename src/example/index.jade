@@ -1,0 +1,62 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title ugoslide
+    link(rel='stylesheet' href='style.css')
+    link(rel='stylesheet' href='syntax.white.css')
+    script(src='jquery.min.js')
+    script(src='../lib/ugoslide.js')
+    script(src='highlight.pack.js')
+    script(src='main.js')
+  body
+    .slide
+      p.navigator
+        a.prev(href="#") &lt;&lt;
+        span.current(href="#")
+        a.next(href="#") &gt;&gt;
+      .page
+        h1 ugoslide demo
+        pre
+          code.
+            # entry point
+            $('code').each -> hljs.highlightBlock this
+
+            slide = new UgoSlide $('.slide'),
+              'font-size': '10px'
+              'font-weight': 'normal'
+              'font-style': 'normal'
+              'font-family': 'sans-serif'
+              'color': '#fff'
+
+            slide.showAt 0
+      .page
+        h1 About Project Euler
+        h2 What is Project Euler?
+        p Project Euler is a series of challenging mathematical/computer programming problems that will require more than just mathematical insights to solve. Although mathematics will help you arrive at elegant and efficient methods, the use of a computer and programming skills will be required to solve most problems.
+      .page
+        h1 About Project Euler
+        h2 What is Project Euler?
+        p Project Euler is a series of challenging mathematical/computer programming problems that will require more than just mathematical insights to solve. Although mathematics will help you arrive at elegant and efficient methods, the use of a computer and programming skills will be required to solve most problems.
+        p The motivation for starting Project Euler, and its continuation, is to provide a platform for the inquiring mind to delve into unfamiliar areas and learn new concepts in a fun and recreational context.
+      .page
+        h1 About Project Euler
+        h2 Who are the problems aimed at?
+        p The intended audience include students for whom the basic curriculum is not feeding their hunger to learn, adults whose background was not primarily mathematics but had an interest in things mathematical, and professionals who want to keep their problem solving and mathematics on the edge.
+      .page
+        h1 About Project Euler
+        h2 Can anyone solve the problems?
+        p The problems range in difficulty and for many the experience is inductive chain learning. That is, by solving one problem it will expose you to a new concept that allows you to undertake a previously inaccessible problem. So the determined participant will slowly but surely work his/her way through every problem.
+      .page
+        h1 About Project Euler
+        h2 What next?
+        p In order to track your progress it is necessary to setup an account and have Cookies enabled. If you already have an account then Login, otherwise please Register - it's completely free!
+      .page
+        h1 About Project Euler
+        h2 What next?
+        p In order to track your progress it is necessary to setup an account and have Cookies enabled. If you already have an account then Login, otherwise please Register - it's completely free!
+        p However, as the problems are challenging then you may wish to view the Problems before registering.
+      .page
+        p(style='margin:200px 40px;text-align:center')
+          em "Project Euler exists to encourage, challenge, and develop the skills and enjoyment of anyone with an interest in the fascinating world of mathematics."
+

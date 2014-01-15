@@ -1,0 +1,15 @@
+{
+  "name": "ugoslide",
+  "version": "0.0.1",
+  "description": "toy slide engine",
+  "author": "tcptr",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-coffee": "~0.8.0",
+    "grunt-contrib-jade": "~0.9.1",
+    "grunt-contrib-sass": "~0.6.0",
+    "grunt-contrib-connect": "~0.6.0",
+    "grunt-este-watch": "~0.1.15"
+  }
+}
