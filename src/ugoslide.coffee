@@ -69,9 +69,51 @@ class UgoSlide
   choice: (arr) ->
     arr.shift()
 
+  # ひらがな, カタカナ, 漢字, アルファベットあたりをサポート
+  characterGroup: (code, current) ->
+    if code == 0x20 || code == 0x3040
+      'space'
+    else if 0x21 <= code && code <= 0x3f ||
+            0x3a <= code && code <= 0x40 ||
+            0x5b <= code && code <= 0x60 ||
+            0x7b <= code && code <= 0x7f
+      'symbol'
+    else if 0x30 <= code && code <= 0x39
+      'number'
+    else if 0x41 <= code && code <= 0x5a ||
+            0x61 <= code && code <= 0x7a
+      'alphabet'
+    else if 0x3041 <= code && code <= 0x309f ||
+            current == 'hiragana' && code == 0x30fc
+      'hiragana'
+    else if 0x30a0 <= code && code <= 0x30ff
+      'katakana'
+    else if 0x3400 <= code && code <= 0x9fff
+      'kanji'
+    else
+      'others'
+
   # デフォルトでは単語単位
   splitChar: (str) ->
-    OPEN + str.split(/(\s+)/).join(CLOSE + OPEN) + CLOSE
+    ret = ""
+    tmp = ""
+    group = @characterGroup str.charCodeAt(0)
+    i = 0
+
+    push = ->
+      return if tmp.length == 0
+      ret += if group == 'space' then tmp else OPEN + tmp + CLOSE
+      tmp = ""
+
+    for i in [0...str.length]
+      g = @characterGroup(str.charCodeAt(i), group)
+      if g != group
+        push()
+        group = g
+      tmp += str.charAt i
+
+    push()
+    ret
 
   showAt: (idx) ->
     $page = @pages[idx]
