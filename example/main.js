@@ -4,14 +4,7 @@
     $('code').each(function() {
       return hljs.highlightBlock(this);
     });
-    slide = new UgoSlide($('.slide'), {
-      'font-size': '10px',
-      'font-weight': 'normal',
-      'font-style': 'normal',
-      'font-family': 'sans-serif',
-      'color': '#fff'
-    });
-    slide.choice = slide.choiceRandom;
+    slide = new UgoSlide($('.slide'));
     slide.idx = 0;
     slide.updatePage = function() {
       return $('.navigator .current').html("" + (this.idx + 1) + "/" + this.pages.length);

@@ -1,14 +1,8 @@
 $ ->
   $('code').each -> hljs.highlightBlock this
 
-  slide = new UgoSlide $('.slide'),
-    'font-size': '10px'
-    'font-weight': 'normal'
-    'font-style': 'normal'
-    'font-family': 'sans-serif'
-    'color': '#fff'
+  slide = new UgoSlide $('.slide')
 
-  slide.choice = slide.choiceRandom
   slide.idx = 0
 
   slide.updatePage = ->

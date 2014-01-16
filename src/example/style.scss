@@ -31,8 +31,11 @@ body{
     margin:30px;
   }
   p,pre{
-    margin:40px;
+    margin:30px;
+    padding:10px;
     color:#2c3e50;
+    background:#ecf0f1;
+    border-radius:20px;
   }
   em{
     color:#2980b9;
@@ -58,5 +61,9 @@ body{
         color:#e74c3c;
       }
     }
+  }
+
+  code{
+    border-radius:20px;
   }
 }

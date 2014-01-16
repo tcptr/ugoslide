@@ -30,8 +30,11 @@ body {
   margin: 30px;
 }
 .slide p, .slide pre {
-  margin: 40px;
+  margin: 30px;
+  padding: 10px;
   color: #2c3e50;
+  background: #ecf0f1;
+  border-radius: 20px;
 }
 .slide em {
   color: #2980b9;
@@ -54,4 +57,7 @@ body {
 }
 .slide .navigator a:hover {
   color: #e74c3c;
+}
+.slide code {
+  border-radius: 20px;
 }
