@@ -34,16 +34,19 @@ class UgoSlide
         height: @rootSize.height
         margin: 0
         zIndex: @pages.length + 1
-
     @$root.append @$words
-    @$root.css 'position', 'relative' if @$root.css('position') == 'static'
+
+    @$navigator = @$root.find('.navigator')
+    @$navigator.css 'z-index', @pages.length + 2
 
     for $page, i in @pages
       $page.css
         position: 'absolute'
         opacity: 0
         zIndex: i
-        transition: '1.5s'
+
+    for $el in [@$root, @$navigator]
+      $el.css 'display', 'relative' if $el.css('display') == 'static'
 
   init: ->
     wordCountsSum = {}
@@ -145,7 +148,9 @@ class UgoSlide
   showAt: (idx) ->
     $page.css 'opacity', 0 for $page in @pages
     $page = @pages[idx]
-    $page.css 'opacity', 1
+    $page.css
+      opacity: 1
+      transition: '1.5s ease-out'
 
     wordElems = {}
     wordElems[k] = $.merge [], arr for k, arr of @wordElems
