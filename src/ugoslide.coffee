@@ -1,5 +1,5 @@
 $.fn.extend
-  positionFrom: ($el) ->
+  offsetFrom: ($el) ->
     from = $el.offset()
     to = @offset()
 
@@ -12,17 +12,10 @@ $.fn.extend
         when 3 then f.call @, @
         when 1 then $(@).eachTextNode f
 
-  tree: (f, depth = 0) ->
-    depth += 1
-    @children().each ->
-      f.call @, @, depth
-      $(@).tree f, depth
-
 class UgoSlide
-  constructor: (@$root, @cssWord = WORD_DEFAULTS, @cssNode = NODE_DEFAULTS) ->
+  constructor: (@$root, @cssWord = WORD_DEFAULTS) ->
     @pages = @$root.children('.page').map -> $(@)
     @wordElems = {}
-    @nodeElems = {}
 
     @rootSize =
       width: @$root[0].clientWidth
@@ -32,64 +25,44 @@ class UgoSlide
     @init()
 
   initStyle: ->
-    @$root.css 'position', 'relative' if @$root.css('position') == 'static'
-    @$root.css 'overflow', 'hidden'
+    @$words = $ '<div />',
+      class: 'ugoline-words'
+      css:
+        position: 'absolute'
+        overflow: 'hidden'
+        width: @rootSize.width
+        height: @rootSize.height
+        margin: 0
+        zIndex: @pages.length + 1
 
-    for $page in @pages
+    @$root.append @$words
+    @$root.css 'position', 'relative' if @$root.css('position') == 'static'
+
+    for $page, i in @pages
       $page.css
         position: 'absolute'
-        visibility: 'hidden'
+        opacity: 0
+        zIndex: i
+        transition: '1.5s'
 
   init: ->
-    nodeCountsSum = {}
     wordCountsSum = {}
 
-    mergeCount = (from, to) ->
-      to[k] = Math.max(to[k] ? 0, count) for k, count of from
-
     for $el in @pages
-      nodeCounts = {}
-      wordCounts = {}
-
-      # 各ノードの数を数える
-      $el.tree (el, depth) =>
-        key = "#{el.tagName}-#{depth}"
-        nodeCounts[key] = (nodeCounts[key] ? 0) + 1
-        $(el).addClass 'ugoslide-node-base'
-        # TODO nodeのz-indexに対応していない
-
       # 各テキストノードを字句単位のノードに変換
       $el.eachTextNode (el) =>
+        return unless /\S/.test el.data
         html = @splitText el.data
         $(el).replaceWith html
 
       # 字句を数える
+      wordCounts = {}
       $el.find('.ugoslide-word-base').each ->
         word = $(@).text()
         wordCounts[word] = (wordCounts[word] ? 0) + 1
 
-      # 必要な字句/ノード数を算出
-      mergeCount nodeCounts, nodeCountsSum
-      mergeCount wordCounts, wordCountsSum
-
-    # 必要なノードを初期化
-    for key, count of nodeCountsSum
-      [tagName, depth] = key.split(/-/)
-      @nodeElems[key] =
-        for _ in [1..count]
-          $node = $ "<#{tagName} />",
-            class: 'ugoslide-node'
-            css: $.extend {
-              position: 'absolute'
-              margin: 0
-              padding: 0
-              zIndex: depth
-              transition: "1.0s ease-out"
-            }, @cssSplashed(@cssNode)
-
-          $node.showed = false
-          @$root.append $node
-          $node
+      for k, count of wordCounts
+        wordCountsSum[k] = Math.max(wordCountsSum[k] ? 0, count)
 
     # 必要な字句を初期化
     for word, count of wordCountsSum
@@ -102,13 +75,18 @@ class UgoSlide
               position: 'absolute'
               margin: 0
               padding: 0
-              zIndex: 9999
+              userSelect: 'none'
               transition: "#{1.3 - word.length / 12}s ease-out"
             }, @cssSplashed(@cssWord)
 
           $word.showed = false
-          @$root.append $word
+          @$words.append $word
           $word
+
+    $('.ugoslide-word-base').each ->
+      $word = $(@)
+      $word.data 'color', $word.css('color')
+      $word.css 'color', 'rgba(0,0,0,0)'
 
   choiceSequence: (arr) ->
     arr.shift()
@@ -165,15 +143,12 @@ class UgoSlide
     ret
 
   showAt: (idx) ->
+    $page.css 'opacity', 0 for $page in @pages
     $page = @pages[idx]
+    $page.css 'opacity', 1
 
-    copy = (dic) ->
-      ret = {}
-      ret[k] = $.merge [], arr for k, arr of dic
-      ret
-
-    wordElems = copy @wordElems
-    nodeElems = copy @nodeElems
+    wordElems = {}
+    wordElems[k] = $.merge [], arr for k, arr of @wordElems
 
     # 表示する要素に反映
     $page.find('.ugoslide-word-base').each (_, el) =>
@@ -182,13 +157,6 @@ class UgoSlide
       $word.showed = true
       $word.css @cssReflecting($el, @cssWord)
 
-    $page.tree (el, depth) =>
-      $el = $(el)
-      return unless $el.hasClass 'ugoslide-node-base'
-      $node = @choiceSequence nodeElems["#{el.tagName}-#{depth}"]
-      $node.showed = true
-      $node.css @cssReflecting($el, @cssNode)
-
     # 表示しない要素に反映
     for _, ls of wordElems
       for $word in ls
@@ -196,15 +164,10 @@ class UgoSlide
         $word.showed = false
         $word.css @cssSplashed(@cssWord)
 
-    for _, ls of nodeElems
-      for $node in ls
-        continue unless $node.showed
-        $node.showed = false
-        $node.css @cssSplashed(@cssNode)
-
   cssReflecting: ($el, base) ->
-    ret = $el.positionFrom @$root
+    ret = $el.offsetFrom @$root
     ret[key] = $el.css key for key, _ of base
+    ret.color = $el.data 'color'
     ret
 
   cssSplashed: (base) ->
@@ -213,7 +176,7 @@ class UgoSlide
   makeSplashPos: ->
     # opacity: 0をつけて適当に飛ばしてもいいが, さらに重くなる
     if Math.random() < 0.5
-      top: if Math.random() < 0.5 then -120 else @rootSize.height + 10
+      top: if Math.random() < 0.5 then -20 else @rootSize.height + 10
       left: Math.random() * @rootSize.width
     else
       top: Math.random() * @rootSize.height
@@ -228,27 +191,6 @@ class UgoSlide
     fontStyle: 'normal'
     fontFamily: 'sans-serif'
     color: '#fff'
-
-  NODE_DEFAULTS =
-    width: 0
-    height: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-    backgroundColor: '#fff'
-    borderLeftColor: '#fff'
-    borderRightColor: '#fff'
-    borderTopColor: '#fff'
-    borderBottomColor: '#fff'
-    borderLeftWidth: 0
-    borderTopWidth: 0
-    borderBottomWidth: 0
-    borderRightWidth: 0
-    borderLeftStyle: 'solid'
-    borderTopStyle: 'solid'
-    borderBottomStyle: 'solid'
-    borderRightStyle: 'solid'
 
 window.UgoSlide = UgoSlide
 
