@@ -8,27 +8,33 @@ module.exports = (grunt) ->
         src: ["src/example/*.coffee"]
         dest: "example/main.js"
 
-    sass: example:
-      options:
-        style: "expanded"
-      files: [
-        expand: true
-        cwd: "src/example"
-        src: ["*.scss"]
-        dest: "example"
-        ext: ".css"
-      ]
+    uglify:
+      build:
+        files:
+          "lib/ugoslide.min.js": ["lib/ugoslide.js"]
 
-    jade: example:
-      options:
-        pretty: true
-      files:
-        "example/index.html": "src/example/index.jade"
+    sass:
+      build:
+        files: [
+          expand: true
+          cwd: "src"
+          src: ["*.scss"]
+          dest: "lib"
+          ext: ".css"
+        ]
 
-    connect: example:
-      options:
-        port: 3000
-        livereload: 35729
+    jade:
+      example:
+        options:
+          pretty: true
+        files:
+          "example/index.html": "src/example/index.jade"
+
+    connect:
+      example:
+        options:
+          port: 3000
+          livereload: 35729
 
     esteWatch:
       options:
@@ -39,7 +45,7 @@ module.exports = (grunt) ->
           extensions: ["jade", "scss", "coffee"]
       jade: -> "jade"
       scss: -> "sass"
-      coffee: -> "coffee"
+      coffee: -> ["coffee", "uglify"]
 
   pkg = grunt.file.readJSON "package.json"
 
@@ -49,6 +55,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask "default", [
     "coffee"
+    "uglify"
     "sass"
     "jade"
     "connect"
