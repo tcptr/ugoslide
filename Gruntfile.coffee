@@ -21,14 +21,14 @@ module.exports = (grunt) ->
         ]
 
     jade:
-      example:
+      ghPages:
         options:
           pretty: true
         files:
-          "example/index.html": "src/example/index.jade"
+          "gh-pages/index.html": "src/gh-pages/index.jade"
 
     connect:
-      example:
+      ghPages:
         options:
           port: 3000
           livereload: 35729
@@ -50,12 +50,6 @@ module.exports = (grunt) ->
     if taskName.substring(0, 6) == "grunt-"
       grunt.loadNpmTasks taskName
 
-  grunt.registerTask "default", [
-    "coffee"
-    "uglify"
-    "sass"
-    "jade"
-    "connect"
-    "esteWatch"
-  ]
+  grunt.registerTask "build", ["coffee", "uglify", "sass"]
+  grunt.registerTask "default", ["build", "jade", "connect", "esteWatch"]
 
