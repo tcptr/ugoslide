@@ -11,10 +11,10 @@
 
 .ugoslide-words {
   position: absolute;
-  overflow: hidden;
   width: 100%;
   height: 100%;
   margin: 0;
+  overflow: hidden;
   z-index: 2; }
 
 .ugoslide-word {
@@ -23,19 +23,61 @@
   padding: 0;
   transition-timing-function: ease-out; }
 
-.ugoslide-navigator {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  z-index: 3; }
-
 .ugoslide-page {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 20px;
   transition: 0.5s ease-out;
   opacity: 0;
   z-index: 1; }
+
+.ugoslide-navigator {
+  position: absolute;
+  z-index: 3; }
+
+/**
+ * default design
+ */
+.default {
+  background: #ecf0f1; }
+  .default .ugoslide {
+    text-align: center;
+    color: #2c3e50; }
+  .default .ugoslide-words {
+    text-align: center;
+    color: #2c3e50; }
+  .default .ugoslide-page {
+    /*
+     * top:50%;
+     * bottom:auto;
+     * transform:translate(0, -50%);
+     * margin:0 1em;
+     */
+    margin: 1em;
+    padding: 0.5em;
+    background: #fff;
+    border-radius: 1em; }
+  .default .ugoslide-navigator {
+    bottom: 1.5em;
+    right: 1.5em; }
+    .default .ugoslide-navigator span {
+      display: inline-block;
+      width: 3em;
+      text-align: center;
+      color: #16a085; }
+    .default .ugoslide-navigator a {
+      display: inline-block;
+      width: 2em;
+      text-align: center;
+      text-decoration: none;
+      transition: 0.5s;
+      color: #2980b9; }
+      .default .ugoslide-navigator a:hover {
+        color: #e67e22; }
+  .default h1 {
+    color: #2980b9; }
+  .default pre code {
+    text-align: left;
+    border-radius: 1em; }

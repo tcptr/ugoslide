@@ -155,7 +155,7 @@ class UgoSlide
     # 表示しない要素に反映
     for _, ls of wordElems
       for $word in ls
-        continue unless $word.showed
+        continue if !$word.showed && !force
         $word.showed = false
         $word.css @cssSplashed()
 

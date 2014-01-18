@@ -18,27 +18,23 @@ html
         var slide = new UgoSlide();
 
         setInterval(function(){
-          if (Math.random() > 0.02) return;
+          if (Math.random() > 0.01) return;
           slide.showCurrent();
         }, 100);
       });
-  body
-    .ugoslide.slide
+  body.default
+    .ugoslide
       .ugoslide-page
-        h1 ugoslide demo
+        h1 ugoslide
         pre
           code.
-            # entry point
-            $('code').each -> hljs.highlightBlock this
+            $(function(){
+              $('code').each(function(){
+                hljs.highlightBlock(this);
+              });
 
-            slide = new UgoSlide $('.slide'),
-              'font-size': '10px'
-              'font-weight': 'normal'
-              'font-style': 'normal'
-              'font-family': 'sans-serif'
-              'color': '#fff'
-
-            slide.showAt 0
+              new UgoSlide();
+            });
       .ugoslide-page
         h1 About Project Euler
         h2 What is Project Euler?
@@ -65,6 +61,4 @@ html
         h2 What next?
         p In order to track your progress it is necessary to setup an account and have Cookies enabled. If you already have an account then Login, otherwise please Register - it's completely free!
         p However, as the problems are challenging then you may wish to view the Problems before registering.
-      .ugoslide-page
-        em "Project Euler exists to encourage, challenge, and develop the skills and enjoyment of anyone with an interest in the fascinating world of mathematics."
 
