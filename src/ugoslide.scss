@@ -1,69 +1,53 @@
-body{
-  background:#ecf0f1;
-}
-
-.slide{
+/**
+ * requirements
+ */
+.ugoslide{
   position:absolute;
-  top:50%;
-  left:50%;
-  width:600px;
-  height:600px;
-  margin-top:-300px;
-  margin-left:-300px;
-  background:#fff;
-  border-radius:20px;
-  line-height:1.6;
-
-  .page{
-    width:600px;
-    height:600px;
-  }
-
-  h1{
-    color:#16a085;
-    font-size:140%;
-    margin:30px;
-    text-align:right;
-  }
-  h2{
-    color:#c0392b;
-    font-size:120%;
-    margin:30px;
-  }
-  p,pre{
-    margin:30px;
-    padding:10px;
-    color:#2c3e50;
-    background:#ecf0f1;
-    border-radius:20px;
-  }
-  em{
-    color:#2980b9;
-    font-style:normal;
-  }
-
-  .navigator{
-    position:absolute;
-    bottom:0;
-    right:0;
-    background:#ecf0f1;
-    border-radius:20px;
-    color:#16a085;
-
-    a{
-      text-decoration:none;
-      color:#3498db;
-      transition:0.2s;
-      display:inline-block;
-      padding:5px 15px;
-
-      &:hover{
-        color:#e74c3c;
-      }
-    }
-  }
-
-  code{
-    border-radius:20px;
-  }
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  line-height:1.4;
 }
+
+.ugoslide-words{
+  position:absolute;
+  overflow:hidden;
+  width:100%;
+  height:100%;
+  margin:0;
+  z-index:2;
+}
+
+.ugoslide-word{
+  position:absolute;
+  margin:0;
+  padding:0;
+  transition-timing-function:ease-out;
+}
+
+.ugoslide-navigator{
+  position:absolute;
+  bottom:20px;
+  right:20px;
+  z-index:3;
+
+  .ugoslide-prev{}
+  .ugoslide-next{}
+  .ugoslide-current{}
+}
+
+.ugoslide-page{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:20px;
+  transition:0.5s ease-out;
+  opacity:0;
+  z-index:1;
+
+  .ugoline-word-base{}
+}
+

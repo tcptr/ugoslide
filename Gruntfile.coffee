@@ -4,9 +4,6 @@ module.exports = (grunt) ->
       build:
         src: ["src/*.coffee"]
         dest: "lib/ugoslide.js"
-      example:
-        src: ["src/example/*.coffee"]
-        dest: "example/main.js"
 
     uglify:
       build:

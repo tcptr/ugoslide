@@ -8,12 +8,24 @@
     <script src="../lib/ugoslide.min.js"></script>
     <link rel="stylesheet" href="syntax.white.css">
     <script src="highlight.pack.js"></script>
-    <script src="main.js"></script>
+    <script>
+      $(function(){
+        $('code').each(function(){
+          hljs.highlightBlock(this);
+        });
+        
+        var slide = new UgoSlide();
+        
+        setInterval(function(){
+          if (Math.random() > 0.02) return;
+          slide.showCurrent();
+        }, 100);
+      });
+    </script>
   </head>
   <body>
-    <div class="slide">
-      <p class="navigator"><a href="#" class="prev">&lt;&lt;</a><span href="#" class="current"></span><a href="#" class="next">&gt;&gt;</a></p>
-      <div class="page">
+    <div class="ugoslide slide">
+      <div class="ugoslide-page">
         <h1>ugoslide demo</h1>
         <pre><code># entry point
 $('code').each -> hljs.highlightBlock this
@@ -27,41 +39,39 @@ slide = new UgoSlide $('.slide'),
   
 slide.showAt 0</code></pre>
       </div>
-      <div class="page">
+      <div class="ugoslide-page">
         <h1>About Project Euler</h1>
         <h2>What is Project Euler?</h2>
         <p>Project Euler is a series of challenging mathematical/computer programming problems that will require more than just mathematical insights to solve. Although mathematics will help you arrive at elegant and efficient methods, the use of a computer and programming skills will be required to solve most problems.</p>
       </div>
-      <div class="page">
+      <div class="ugoslide-page">
         <h1>About Project Euler</h1>
         <h2>What is Project Euler?</h2>
         <p>Project Euler is a series of challenging mathematical/computer programming problems that will require more than just mathematical insights to solve. Although mathematics will help you arrive at elegant and efficient methods, the use of a computer and programming skills will be required to solve most problems.</p>
         <p>The motivation for starting Project Euler, and its continuation, is to provide a platform for the inquiring mind to delve into unfamiliar areas and learn new concepts in a fun and recreational context.</p>
       </div>
-      <div class="page">
+      <div class="ugoslide-page">
         <h1>About Project Euler</h1>
         <h2>Who are the problems aimed at?</h2>
         <p>The intended audience include students for whom the basic curriculum is not feeding their hunger to learn, adults whose background was not primarily mathematics but had an interest in things mathematical, and professionals who want to keep their problem solving and mathematics on the edge.</p>
       </div>
-      <div class="page">
+      <div class="ugoslide-page">
         <h1>About Project Euler</h1>
         <h2>Can anyone solve the problems?</h2>
         <p>The problems range in difficulty and for many the experience is inductive chain learning. That is, by solving one problem it will expose you to a new concept that allows you to undertake a previously inaccessible problem. So the determined participant will slowly but surely work his/her way through every problem.</p>
       </div>
-      <div class="page">
+      <div class="ugoslide-page">
         <h1>About Project Euler</h1>
         <h2>What next?</h2>
         <p>In order to track your progress it is necessary to setup an account and have Cookies enabled. If you already have an account then Login, otherwise please Register - it's completely free!</p>
       </div>
-      <div class="page">
+      <div class="ugoslide-page">
         <h1>About Project Euler</h1>
         <h2>What next?</h2>
         <p>In order to track your progress it is necessary to setup an account and have Cookies enabled. If you already have an account then Login, otherwise please Register - it's completely free!</p>
         <p>However, as the problems are challenging then you may wish to view the Problems before registering.</p>
       </div>
-      <div class="page">
-        <p style="margin:200px 40px;text-align:center"><em>"Project Euler exists to encourage, challenge, and develop the skills and enjoyment of anyone with an interest in the fascinating world of mathematics."</em></p>
-      </div>
+      <div class="ugoslide-page"><em>"Project Euler exists to encourage, challenge, and develop the skills and enjoyment of anyone with an interest in the fascinating world of mathematics."</em></div>
     </div>
   </body>
 </html>
