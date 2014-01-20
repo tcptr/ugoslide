@@ -44,21 +44,20 @@
   background: #ecf0f1; }
   .default .ugoslide {
     text-align: center;
-    color: #2c3e50; }
+    color: #2c3e50;
+    margin: 1em;
+    background: #fff;
+    border-radius: 1em; }
   .default .ugoslide-words {
     text-align: center;
     color: #2c3e50; }
   .default .ugoslide-page {
-    /*
-     * top:50%;
-     * bottom:auto;
-     * transform:translate(0, -50%);
-     * margin:0 1em;
-     */
-    margin: 1em;
-    padding: 0.5em;
-    background: #fff;
-    border-radius: 1em; }
+    top: 50%;
+    bottom: auto;
+    transform: translate(0, -55%);
+    -webkit-transform: translate(0, -55%);
+    -o-transform: translate(0, -55%);
+    -ms-transform: translate(0, -55%); }
   .default .ugoslide-navigator {
     bottom: 1.5em;
     right: 1.5em; }
@@ -78,6 +77,8 @@
         color: #e67e22; }
   .default h1 {
     color: #2980b9; }
+  .default p, .default pre {
+    margin: 1.5em 1em; }
   .default pre code {
     text-align: left;
     border-radius: 1em; }
