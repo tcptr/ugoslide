@@ -57,6 +57,9 @@
   .ugoslide{
     text-align:center;
     color:#2c3e50;
+    margin:1em;
+    background:#fff;
+    border-radius:1em;
   }
 
   .ugoslide-words{
@@ -65,16 +68,12 @@
   }
 
   .ugoslide-page{
-    /*
-     * top:50%;
-     * bottom:auto;
-     * transform:translate(0, -50%);
-     * margin:0 1em;
-     */
-    margin:1em;
-    padding:0.5em;
-    background:#fff;
-    border-radius:1em;
+    top:50%;
+    bottom:auto;
+    transform:translate(0, -55%);
+    -webkit-transform:translate(0, -55%);
+    -o-transform:translate(0, -55%);
+    -ms-transform:translate(0, -55%);
   }
 
   .ugoslide-navigator{
@@ -104,6 +103,10 @@
 
   h1{
     color:#2980b9;
+  }
+
+  p, pre{
+    margin:1.5em 1em;
   }
 
   pre code{
