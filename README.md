@@ -17,10 +17,6 @@ $ git clone git://github.com/tcptr/ugoslide.git -b gh-pages gh-pages
 $ grunt
 ```
 
-## TODO
-
-* user interaction support
-
 ## license
 
 ```

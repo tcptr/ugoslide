@@ -43,6 +43,18 @@ class UgoSlide
     @$words = @$root.find '.ugoslide-words'
     @$navigatorCurrent = $('.ugoslide-current')
 
+    getBehind = (e) =>
+      @$words.css 'display', 'none'
+      elem = document.elementFromPoint e.pageX, e.pageY
+      @$words.css 'display', 'block'
+      $(elem)
+
+    @$words.on 'click', (e) =>
+      getBehind(e).trigger e
+
+    @$words.on 'mousemove', (e) =>
+      @$words.css 'cursor', getBehind(e).css('cursor')
+
     $('.ugoslide-prev').on 'click', => @showPrev()
     $('.ugoslide-next').on 'click', => @showNext()
 
@@ -111,15 +123,15 @@ class UgoSlide
   splitText: (str) ->
     OPEN = '<span class="ugoslide-word-base">'
     CLOSE = '</span>'
-    ret = ""
-    tmp = ""
+    ret = ''
+    tmp = ''
     group = @characterGroup str.charCodeAt(0)
     i = 0
 
     push = ->
       return if tmp.length == 0
       ret += if group == 'space' then tmp else OPEN + tmp + CLOSE
-      tmp = ""
+      tmp = ''
 
     for i in [0...str.length]
       g = @characterGroup(str.charCodeAt(i), group)
