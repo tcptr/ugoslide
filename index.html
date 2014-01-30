@@ -3,17 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>ugoslide demo</title>
-    <link rel="stylesheet" href="ugoslide.css">
-    <script src="jquery.min.js"></script>
-    <script src="ugoslide.min.js"></script>
-    <link rel="stylesheet" href="syntax.white.css">
-    <script src="highlight.pack.js"></script>
+    <link rel="stylesheet" href="lib/ugoslide.css">
+    <script src="test/jquery-2.1.0.min.js"></script>
+    <script src="lib/ugoslide.min.js"></script>
     <script>
       $(function(){
-        $('code').each(function(){
-          hljs.highlightBlock(this);
-        });
-        
         var slide = new UgoSlide();
         
         setInterval(function(){
@@ -26,14 +20,8 @@
   <body class="default">
     <div class="ugoslide">
       <div class="ugoslide-page">
-        <h1>ugoslide</h1>
-        <pre><code>$(function(){
-  $('code').each(function(){
-    hljs.highlightBlock(this);
-  });
-  
-  new UgoSlide();
-});</code></pre>
+        <h1>ugoslide demo</h1>
+        <p>.ugoslide-page</p>
       </div>
       <div class="ugoslide-page">
         <h1>About Project Euler</h1>
