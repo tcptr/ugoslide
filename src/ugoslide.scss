@@ -74,6 +74,24 @@
     -webkit-transform:translate(0, -55%);
     -o-transform:translate(0, -55%);
     -ms-transform:translate(0, -55%);
+
+    em{
+      color:#c0392b;
+      font-style:normal;
+    }
+
+    strong{
+      color:#e74c3c;
+    }
+
+    a{
+      text-decoration:none;
+      color:#2980b9;
+
+      &:hover{
+        color:#1abc9c;
+      }
+    }
   }
 
   .ugoslide-navigator{
@@ -108,10 +126,46 @@
   p, pre{
     margin:1.5em 1em;
   }
+  
+  ul, ol{
+    margin:1.5em 1em;
+    display:inline-block;
+  }
+
+  li{
+    text-align:left;
+    margin:0.5em 0;
+    padding:0 0.5em;
+  }
+
+  blockquote{
+    margin:1.5em 1em;
+    text-align:left;
+    color:#95a5a6;
+  }
 
   pre code{
     text-align:left;
-    border-radius:1em;
+    border-radius:0.5em;
+  }
+
+  table{
+    margin:1.5em 1em;
+    border:1px solid #bdc3c7;
+    border-collapse:collapse;
+  }
+
+  th{
+    text-align:left;
+    background:#ecf0f1;
+    padding:0.5em 1em;
+  }
+
+  td{
+    text-align:left;
+    padding:0.5em 1em;
+    color:#7f8c8d;
+    border-top:1px solid #ecf0f1;
   }
 }
 

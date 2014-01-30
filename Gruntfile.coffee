@@ -20,12 +20,14 @@ module.exports = (grunt) ->
           ext: ".css"
         ]
 
-    jade:
+    copy:
       ghPages:
-        options:
-          pretty: true
-        files:
-          "gh-pages/index.html": "src/gh-pages/index.jade"
+        files: [
+          expand: true
+          flatten: true
+          src: ['lib/*']
+          dest: 'gh-pages/lib/'
+        ]
 
     connect:
       ghPages:
@@ -39,10 +41,9 @@ module.exports = (grunt) ->
         livereload:
           enabled: true
           port: 35729
-          extensions: ["jade", "scss", "coffee"]
-      jade: -> "jade"
-      scss: -> "sass"
-      coffee: -> ["coffee", "uglify"]
+          extensions: ["scss", "coffee"]
+      scss: -> ["sass", "copy"]
+      coffee: -> ["coffee", "uglify", "copy"]
 
   pkg = grunt.file.readJSON "package.json"
 
@@ -51,5 +52,5 @@ module.exports = (grunt) ->
       grunt.loadNpmTasks taskName
 
   grunt.registerTask "build", ["coffee", "uglify", "sass"]
-  grunt.registerTask "default", ["build", "jade", "connect", "esteWatch"]
+  grunt.registerTask "default", ["build", "connect", "copy", "esteWatch"]
 
