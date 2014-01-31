@@ -20,6 +20,12 @@ class UgoSlide
 
     setTimeout((=> @showAt 0), @pageDuration())
 
+  escape: (key) ->
+    '#' + key
+
+  unescape: (key) ->
+    key.substr 1
+
   pageDuration: ->
     if @options.scalable
       d = $('.ugoslide-page').css('transitionDuration')
@@ -92,16 +98,17 @@ class UgoSlide
 
       # 字句を数える
       wordCounts = {}
-      $el.find('.ugoslide-word-base').each ->
-        word = $(@).text()
+      $el.find('.ugoslide-word-base').each (_, el) =>
+        word = @escape $(el).text()
         wordCounts[word] = (wordCounts[word] ? 0) + 1
 
       for k, count of wordCounts
         wordCountsSum[k] = Math.max(wordCountsSum[k] ? 0, count)
 
     # 必要な字句を初期化
-    for word, count of wordCountsSum
-      @wordElems[word] =
+    for key, count of wordCountsSum
+      word = @unescape key
+      @wordElems[key] =
         for _ in [1..count]
           css = @cssSplashed()
           css.transitionDuration = @transitionDuration(word) + 's'
@@ -166,7 +173,7 @@ class UgoSlide
     # 表示する要素に反映
     $page.find('.ugoslide-word-base').each (_, el) =>
       $el = $(el)
-      $word = @choiceRandom wordElems[$el.text()]
+      $word = @choiceRandom wordElems[@escape($el.text())]
       $word.showed = true
       $word.css @cssReflecting($el)
 
@@ -212,7 +219,7 @@ class UgoSlide
     ret
 
   transitionDuration: (word) ->
-    Math.max(0.9 - word.length / 10, 0.2)
+    Math.max(0.9 - word.length / 14, 0.2)
 
   characterGroup: (code, current) ->
     # ひらがな, カタカナ, 漢字, アルファベットあたりをサポート
