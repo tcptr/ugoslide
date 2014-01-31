@@ -16,7 +16,7 @@
   height:100%;
   margin:0;
   overflow:hidden;
-  z-index:2;
+  z-index:3;
 }
 
 .ugoslide-word{
@@ -41,7 +41,7 @@
 
 .ugoslide-navigator{
   position:absolute;
-  z-index:3;
+  z-index:4;
 
   .ugoslide-prev{}
   .ugoslide-next{}
@@ -87,6 +87,7 @@
     a{
       text-decoration:none;
       color:#2980b9;
+      cursor:pointer;
 
       &:hover{
         color:#1abc9c;
@@ -129,7 +130,7 @@
   
   ul, ol{
     margin:1.5em 1em;
-    display:inline-block;
+    display:block;
   }
 
   li{
@@ -142,6 +143,11 @@
     margin:1.5em 1em;
     text-align:left;
     color:#95a5a6;
+  }
+
+  code{
+    font-size:95%;
+    background:#f8f8ff;
   }
 
   pre code{
