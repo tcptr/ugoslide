@@ -9,6 +9,7 @@ class UgoSlide
         fontFamily: 'sans-serif'
         color: '#fff'
       scalable: true
+      bore: false
     }, options
 
     @$root = $(@options.root)
@@ -43,23 +44,7 @@ class UgoSlide
         </div>
       """
 
-    if @$root.find('.ugoslide-words').length == 0
-      @$root.append '<div class="ugoslide-words"></div>'
-
-    @$words = @$root.find '.ugoslide-words'
     @$navigatorCurrent = $('.ugoslide-current')
-
-    getBehind = (e) =>
-      @$words.css 'display', 'none'
-      elem = document.elementFromPoint e.pageX, e.pageY
-      @$words.css 'display', 'block'
-      $(elem)
-
-    @$words.on 'click', (e) =>
-      getBehind(e).trigger e
-
-    @$words.on 'mousemove', (e) =>
-      @$words.css 'cursor', getBehind(e).css('cursor')
 
     $('.ugoslide-prev').on 'click', => @showPrev()
     $('.ugoslide-next').on 'click', => @showNext()
@@ -80,7 +65,28 @@ class UgoSlide
 
       textScale()
 
+    return if @options.bore
+
+    if @$root.find('.ugoslide-words').length == 0
+      @$root.append '<div class="ugoslide-words"></div>'
+
+    @$words = @$root.find '.ugoslide-words'
+
+    getBehind = (e) =>
+      @$words.css 'display', 'none'
+      elem = document.elementFromPoint e.pageX, e.pageY
+      @$words.css 'display', 'block'
+      $(elem)
+
+    @$words.on 'click', (e) =>
+      getBehind(e).trigger e
+
+    @$words.on 'mousemove', (e) =>
+      @$words.css 'cursor', getBehind(e).css('cursor')
+
   compile: ->
+    return if @options.bore
+
     eachTextNode = ($el, f) ->
       $el.contents().each ->
         switch @nodeType
@@ -166,6 +172,8 @@ class UgoSlide
       opacity: 1
       zIndex: 2
     @$navigatorCurrent.html "#{@index+1}/#{@pages.length}"
+
+    return if @options.bore
 
     wordElems = {}
     wordElems[k] = $.merge [], arr for k, arr of @wordElems
