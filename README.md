@@ -5,21 +5,22 @@ toy slide engine.
 
 [DEMO](http://tcptr.github.io/ugoslide/) / [DEMO (markdown)](http://tcptr.github.io/ugoslide/markdown.html)
 
-## dependencies
+## usage
 
-* jQuery
+ugoslide depends on jQuery.
+place files like [gh-pages](https://github.com/tcptr/ugoslide/tree/gh-pages).
 
-## development
+## limitation
+
+* cannot handle `word-wrap: break-word` correctly
+
+## hacking
 
 ```
 $ npm install
 $ git clone git://github.com/tcptr/ugoslide.git -b gh-pages gh-pages
 $ grunt
 ```
-
-## limitation
-
-* cannot handle `word-wrap: break-word` correctly
 
 ## license
 
